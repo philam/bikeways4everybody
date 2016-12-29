@@ -15,7 +15,7 @@ BEGIN
     --Convert the GeoJSON to a geometry type for insertion. 
     _the_geom := ST_SetSRID(ST_GeomFromGeoJSON(_geojson),4326); 
 
-    EXECUTE ' INSERT INTO bikeways (the_geom, notes, name, zipcode)
+    EXECUTE ' INSERT INTO bikeways (the_geom, notes, name, postcode)
             VALUES ($1, $2, $3, $4)
             ' USING _the_geom, _notes, _name, _zip;
             

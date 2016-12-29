@@ -47,8 +47,8 @@
           <ul style="list-style-type: none; padding-left: 0px">
             <li><label for="username">Please Enter Your First Name</label></li>
             <li><input type="text" name="username" id="username" placeholder="Enter your name" pattern="[A-Za-z]{3,}" title="Your first name must be at least 3 letters" class="text ui-widget-content ui-corner-all" required></li>
-            <li><label for="zipcode">Please Enter Your Zipcode</label></li>
-            <li><input type="text" name="zipcode" maxlength="5" pattern="[0-9]{5}" id="zipcode" title="Please enter a 5 digit zip-code" placeholder="02134" class="text ui-widget-content ui-corner-all" required></li>
+            <li><label for="postcode">Please Enter Your Postcode</label></li>
+            <li><input type="text" name="postcode" maxlength="4" pattern="[0-9]{4}" id="postcode" title="Please enter a four digit postcode" placeholder="0123" class="text ui-widget-content ui-corner-all" required></li>
           </ul>
         </fieldset>
       </form>
@@ -115,7 +115,7 @@
             //Empty to store markers after they are submitted
         var submittedData = L.geoJson(false, {
             onEachFeature: function (feature, layer) {
-              layer.bindPopup('<b>'+feature.properties.name +', '+ feature.properties.zipcode +'</b><br>'                               +feature.properties.description +'');
+              layer.bindPopup('<b>'+feature.properties.name +', '+ feature.properties.postcode +'</b><br>'                               +feature.properties.description +'');
             }
           }).addTo(map);
         
@@ -157,7 +157,7 @@
             //Empty to store drawn routes after they are submitted
         var submittedRoutes = new L.geoJson(false, {
             onEachFeature: function (feature, layer) {
-              layer.bindPopup('<b>'+feature.properties.name +', '+ feature.properties.zipcode +'</b><br>'                               +feature.properties.description +'');
+              layer.bindPopup('<b>'+feature.properties.name +', '+ feature.properties.postcode +'</b><br>'                               +feature.properties.description +'');
             }
             ,style: function(feature){
                 /* Styles the submitted route drawing with the same properties as the drawn route as defined by line(id)  in definitions.js */
@@ -265,9 +265,9 @@
 		  buttons: [{
 			text: "Submit",
 			  click: function() {
-				var checkedValues = dialogGlobalChecker(username.value, zipcode.value);
+				var checkedValues = dialogGlobalChecker(username.value, postcode.value);
 				if (checkedValues.valid){
-					zip = "'"+zipcode.value+"'";
+					post = "'"+postcode.value+"'";
 					enteredUsername = "'"+username.value+"'";
 
 					dialogGlobal.dialog("close");
@@ -304,9 +304,9 @@
 		});
 		
 		$("#globalAccept").on("touchstart", function() {
-				var checkedValues = dialogGlobalChecker(username.value, zipcode.value);
+				var checkedValues = dialogGlobalChecker(username.value, postcode.value);
 				if (checkedValues.valid){
-					zip = "'"+zipcode.value+"'";
+					post = "'"+postcode.value+"'";
 					enteredUsername = "'"+username.value+"'";
 
 					dialogGlobal.dialog("close");
@@ -379,18 +379,18 @@
           }
     });
         
-	function dialogGlobalChecker(name, zip) {
+	function dialogGlobalChecker(name, post) {
             var error = [];
             var valid = true;
             if(name.length < 3) {
                 error.push("Your name is too short.");
                 valid = false;
             }
-            if(zip.length < 5){
-                error.push("Your zipcode is too short.");
+            if(post.length < 5){
+                error.push("Your postcode is too short.");
                 valid = false;
-            }else if(!/(^\d{5}$)/.test(zip)){
-                error.push("Your zipcode is invalid.");
+            }else if(!/(^\d{5}$)/.test(post)){
+                error.push("Your postcode is invalid.");
                 valid = false;
             }
             return {valid: valid, error: error};        
@@ -447,7 +447,7 @@
             
             submittedLine.properties.description = description.value;
             submittedLine.properties.name = username.value;
-            submittedLine.properties.zipcode = zip;
+            submittedLine.properties.postcode = post;
             submittedLine.properties.color = currentLine.polyline.options.color;
             submittedLine.properties.weight = currentLine.polyline.options.weight;
             submittedLine.properties.opacity= currentLine.polyline.options.opacity;
@@ -468,7 +468,7 @@
                 // Transfer drawing to the CartoDB layer
                   newData.properties.description = description.value;
                   newData.properties.name = username.value;
-                  newData.properties.zipcode = zip;
+                  newData.properties.postcode = post;
                 submittedData.addData(newData);
             });
 			stopDrawingPoints();
@@ -483,7 +483,7 @@
       sql += drawing;
       sql += ","+enteredDescription;
       sql += ","+enteredUsername;
-      sql += ","+zip+");";
+      sql += ","+post+");";
 
 //        console.log(sql); //For testing
             
@@ -643,7 +643,7 @@
             },
             {
                 title:"Enable Drawing",
-                html:"Click on either <span class='fa-stack fa-lg'><i class='fa fa-circle fa-stack-2x'></i><i class='fa fa-map-marker fa-inverse fa-stack-1x'></i></span> or <span class='fa-stack fa-lg'><i class='fa fa-circle fa-stack-2x'></i><i class='fa fa-pencil fa-inverse fa-stack-1x'></i></span> to start giving your input. First we'll want you to enter your first name and zipcode.<br> After that you'll be able to add your input to the map!",
+                html:"Click on either <span class='fa-stack fa-lg'><i class='fa fa-circle fa-stack-2x'></i><i class='fa fa-map-marker fa-inverse fa-stack-1x'></i></span> or <span class='fa-stack fa-lg'><i class='fa fa-circle fa-stack-2x'></i><i class='fa fa-pencil fa-inverse fa-stack-1x'></i></span> to start giving your input. First we'll want you to enter your first name and postcode.<br> After that you'll be able to add your input to the map!",
                 buttons:{'Go back':-1,'I\'m done':0,'Tell me more!':1},
                 position: { container: '#leftBar', x: 150, y: 0, width: 300, arrow: 'lt' },
                 focus:2,
