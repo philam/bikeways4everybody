@@ -3,12 +3,12 @@
  */
 
 var config = {
-	//Set Map Bounds & point map is centered around
-	mapFocus : [42.381899, -71.122499],
-	south : 42.24 ,
-	west : -71.27,
-	north : 42.453,
-	east : -70.95,
+	//Set Map Bounds & point map is centered around - coordinates courtesy of http://boundingbox.klokantech.com/
+	mapFocus : [-37.8323125, 145.0663515],
+	south : -37.88,
+	west : 144.99,
+	north : -37.76,
+	east : 145.11,
 	//Mapbox access token & key for basemap
 	mapboxAccessToken :              
             'pk.eyJ1IjoicGhpbGFtIiwiYSI6ImNpbmk1OGI1MDB3dmt1a20zeDZ5ejRnemsifQ.jfEJAMTg8tCqE2KI2tuAzQ',
