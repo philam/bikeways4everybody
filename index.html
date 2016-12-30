@@ -389,7 +389,7 @@
             if(post.length < 4){
                 error.push("Your postcode is too short.");
                 valid = false;
-            }else if(!/(^\d{5}$)/.test(post)){
+            }else if(!/(^\d{4}$)/.test(post)){
                 error.push("Your postcode is invalid.");
                 valid = false;
             }
